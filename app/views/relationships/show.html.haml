@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @relationship.title
+%p
+  %b Description:
+  = @relationship.description
+%p
+  %b Start date:
+  = @relationship.start_date
+%p
+  %b Type:
+  = @relationship.type
+
+= link_to 'Edit', edit_relationship_path(@relationship)
+\|
+= link_to 'Back', relationships_path

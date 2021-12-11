@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title UsStory
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+  %body
+    %p.notice= notice
+    %p.alert= alert
+    %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      .container-fluid
+        %button.navbar-toggler(aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" data-bs-target="#navbar" data-bs-toggle="collapse" type="button")
+          %span.navbar-toggler-icon
+        #navbar.collapse.navbar-collapse
+          %a.navbar-brand(href="#") UsStory
+          %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+            %li.nav-item
+              = link_to relationships_path, class: 'nav-link' do
+                Memory Lane
+            %li.nav-item
+              = link_to events_path, class: 'nav-link' do
+                Events
+            -#%li.nav-item
+            -#  = link_to trips_path, class: 'nav-link' do
+            -#    Trips
+          .d-flex
+    .container
+      = yield
+
