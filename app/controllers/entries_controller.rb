@@ -75,7 +75,8 @@ class EntriesController < ApplicationController
       :end_date,
       :event_type,
       :status,
-      :content
+      :content,
+      :images
     ).merge(user: current_user, relationship: current_user.relationship)
   end
 end
