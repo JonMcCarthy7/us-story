@@ -1,0 +1,12 @@
+%h1 Remember when...
+
+- if @rems.present?
+  - @rems.each do |rem|
+    .card
+      .card-body
+        .card-title
+          = simple_format rem.content
+        = link_to 'Edit', edit_rem_path(rem)
+        = link_to 'Destroy', rem, method: :delete, data: { confirm: 'Are you sure?' }
+
+= link_to 'New Rem', new_rem_path

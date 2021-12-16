@@ -1,0 +1,10 @@
+%p#notice= notice
+
+%p
+  %b Content:
+  = simple_format @rem.content
+
+
+= link_to 'Edit', edit_rem_path(@rem)
+\|
+= link_to 'Back', rems_path

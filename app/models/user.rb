@@ -5,5 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :relationship, optional: true
+
   has_many :entries
+  has_many :rems
 end
