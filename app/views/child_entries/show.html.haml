@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @child_entry.title
+%p
+  %b Description:
+  = @child_entry.description
+%p
+  %b Start date:
+  = @child_entry.start_date
+%p
+  %b End date:
+  = @child_entry.end_date
+%p
+  %b Entry type:
+  = @child_entry.event_type
+%p
+  %b Type:
+  = @child_entry.type
+%p
+  %b Status:
+  = @child_entry.status
+
+
+
+= link_to 'Edit', edit_entry_child_entry_path(@entry, @child_entry)
+\|
+= link_to 'Back', entry_path(@entry)
+

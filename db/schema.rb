@@ -10,37 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_07_045539) do
+ActiveRecord::Schema.define(version: 2021_12_15_004555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "comments", force: :cascade do |t|
-    t.text "content"
-    t.bigint "user_id"
-    t.bigint "event_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_comments_on_event_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
-  create_table "events", force: :cascade do |t|
+  create_table "entries", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.date "start_date"
     t.date "end_date"
+    t.string "event_type"
+    t.string "type"
     t.string "status"
     t.bigint "user_id"
     t.bigint "relationship_id"
-    t.string "event_type"
+    t.bigint "entry_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "event_id"
-    t.index ["event_id"], name: "index_events_on_event_id"
-    t.index ["event_type"], name: "index_events_on_event_type"
-    t.index ["relationship_id"], name: "index_events_on_relationship_id"
-    t.index ["user_id"], name: "index_events_on_user_id"
+    t.index ["entry_id"], name: "index_entries_on_entry_id"
+    t.index ["relationship_id"], name: "index_entries_on_relationship_id"
+    t.index ["user_id"], name: "index_entries_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -70,10 +60,8 @@ ActiveRecord::Schema.define(version: 2021_12_07_045539) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "comments", "events"
-  add_foreign_key "comments", "users"
-  add_foreign_key "events", "events"
-  add_foreign_key "events", "relationships"
-  add_foreign_key "events", "users"
+  add_foreign_key "entries", "entries"
+  add_foreign_key "entries", "relationships"
+  add_foreign_key "entries", "users"
   add_foreign_key "users", "relationships"
 end

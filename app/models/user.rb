@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :relationship, optional: true
-  has_many :events
+  has_many :entries
 end

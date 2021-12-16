@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :comments
-  resources :events do
-    resources :child_events
+
+  resources :entries do
+    resources :child_entries
   end
   resources :relationships
   devise_for :users

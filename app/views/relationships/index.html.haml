@@ -1,8 +1,8 @@
 %h1 Listing relationships
-- @events.each do |event|
+- @entries.each do |entry|
   .row
-    .col.d-flex{class: event.event_type === "Trip" ? "justify-content-center" : (event.user == current_user ? "justify-content-start" : "justify-content-end") }
-      = link_to event_path(event) do
+    .col.d-flex{class: entry.event_type === "Trip" ? "justify-content-center" : (entry.user == current_user ? "justify-content-start" : "justify-content-end") }
+      = link_to entry_path(entry) do
         .card.mb-3(style="max-width: 540px;")
           .row.g-0
             .col-md-4
@@ -10,12 +10,12 @@
             .col-md-8
               .card-body
                 %h5.card-title
-                  = event.title
+                  = entry.title
                 %p.card-text
-                  = event.start_date
+                  = entry.start_date
                 %p.card-text
                   %small.text-muted
 
 %br
 
-= link_to 'New Relationship', new_relationship_path
+

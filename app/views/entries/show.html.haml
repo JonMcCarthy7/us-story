@@ -1,0 +1,49 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @entry.title
+%p
+  %b Description:
+  = @entry.description
+%p
+  %b Start date:
+  = @entry.start_date
+%p
+  %b End date:
+  = @entry.end_date
+%p
+  %b Entry type:
+  = @entry.event_type
+%p
+  %b Type:
+  = @entry.type
+%p
+  %b Status:
+  = @entry.status
+
+
+
+= link_to 'Edit', edit_entry_path(@entry)
+\|
+= link_to 'Back', entries_path
+- if @entry.trip?
+  = link_to 'Add Trip Entry', new_entry_child_entry_path(@entry)
+
+
+- @child_entries.each do |child_entry|
+  .row
+    .col.d-flex{class: (child_entry.user == current_user ? "justify-content-start" : "justify-content-end") }
+      = link_to entry_child_entry_path(@entry, child_entry) do
+        .card.mb-3(style="max-width: 540px;")
+          .row.g-0
+            .col-md-4
+              %img.img-fluid.rounded-start(alt="..." src="https://via.placeholder.com/150")/
+            .col-md-8
+              .card-body
+                %h5.card-title
+                  = child_entry.title
+                %p.card-text
+                  = child_entry.start_date
+                %p.card-text
+                  %small.text-muted

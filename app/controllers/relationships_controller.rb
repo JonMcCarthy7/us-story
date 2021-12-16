@@ -4,8 +4,8 @@ class RelationshipsController < ApplicationController
   # GET /relationships or /relationships.json
   def index
     @relationship = current_user.relationship
-    @events = @relationship.events.where(event_id: nil)
-              .merge(@relationship.events.includes(:events))
+    @entries = @relationship.entries.where(entry_id: nil)
+              .merge(@relationship.entries.includes(:child_entries))
               .order(start_date: :desc)
   end
 
