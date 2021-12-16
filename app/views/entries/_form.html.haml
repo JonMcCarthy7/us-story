@@ -14,18 +14,21 @@
     = f.text_area :description
   .field
     = f.label :start_date
-    = f.date_select :start_date
+    = f.text_field :start_date,
+    data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y" }
   .field
     = f.label :end_date
-    = f.date_select :end_date
+    = f.text_field :end_date,
+    data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y" }
   .field
     = f.label :event_type
     = f.text_field :event_type
   .field
     = f.label :status
     = f.text_field :status
+  %br
   .field
-    = form.rich_text_area :content
+    = f.rich_text_area :content
 
   .actions
     = f.submit 'Save'

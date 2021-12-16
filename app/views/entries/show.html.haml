@@ -21,7 +21,9 @@
 %p
   %b Status:
   = @entry.status
-
+%br
+%p
+  = @entry.content
 
 
 = link_to 'Edit', edit_entry_path(@entry)

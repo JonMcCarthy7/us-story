@@ -66,7 +66,8 @@ class ChildEntriesController < ApplicationController
       :end_date,
       :event_type,
       :status,
-      :entry_id
+      :entry_id,
+      :content
     ).merge(user: current_user, relationship: current_user.relationship)
   end
 end
