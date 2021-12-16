@@ -22,7 +22,9 @@
     data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y" }
   .field
     = f.label :event_type
-    = f.text_field :event_type
+  .form-group{'data-controller': 'select2'}
+    = f.select :event_type, Entry.relationship_event_types(@entry.relationship),
+    {include_blank: false, required: true, include_hidden: false}, class: 'form-control select2'
   .field
     = f.label :status
     = f.text_field :status
