@@ -68,7 +68,8 @@ class ChildEntriesController < ApplicationController
       :status,
       :entry_id,
       :content,
-      :images
-    ).merge(user: current_user, relationship: current_user.relationship)
+      :main_image,
+      images: []
+    ).merge(user: current_user, relationship: current_relationship)
   end
 end

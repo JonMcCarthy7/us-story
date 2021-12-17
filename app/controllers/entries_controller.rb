@@ -10,7 +10,7 @@ class EntriesController < ApplicationController
 
   # GET /entries/1 or /entries/1.json
   def show
-    @child_entries = @entry.child_entries.order(start_date: :asc)
+    @child_entries = @entry.child_entries.with_attached_images.order(start_date: :asc)
   end
 
   # GET /entries/new
@@ -76,8 +76,9 @@ class EntriesController < ApplicationController
       :event_type,
       :status,
       :content,
-      :images
-    ).merge(user: current_user, relationship: current_user.relationship)
+      :cover_image,
+      images: []
+    ).merge(user: current_user, relationship: current_relationship)
   end
 end
 

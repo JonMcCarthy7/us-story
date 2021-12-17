@@ -31,8 +31,14 @@
   %br
   .field
     = f.rich_text_area :content
-
-  = f.file_field :images, multiple: true
+  %br
+    .field
+      = f.label :main_image
+      = f.file_field :main_image, multiple: false
+  %br
+    .field
+      = f.label :images
+      = f.file_field :images, multiple: true
 
   .actions
     = f.submit 'Save'

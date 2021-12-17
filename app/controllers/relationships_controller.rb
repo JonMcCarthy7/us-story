@@ -3,7 +3,7 @@ class RelationshipsController < ApplicationController
 
   # GET /relationships or /relationships.json
   def index
-    @relationship = current_user.relationship
+    @relationship = current_relationship
     @entries = @relationship.entries.where(entry_id: nil)
               .merge(@relationship.entries.includes(:child_entries))
               .order(start_date: :desc)
