@@ -12,23 +12,30 @@
   %body
     %p.notice= notice
     %p.alert= alert
-    %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-      .container-fluid
-        %button.navbar-toggler(aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" data-bs-target="#navbar" data-bs-toggle="collapse" type="button")
-          %span.navbar-toggler-icon
-        #navbar.collapse.navbar-collapse
-          %a.navbar-brand(href="#") UsStory
-          %ul.navbar-nav.me-auto.mb-2.mb-lg-0
-            %li.nav-item
-              = link_to relationships_path, class: 'nav-link' do
-                Memory Lane
-            %li.nav-item
-              = link_to entries_path, class: 'nav-link' do
-                My Entries
-            -#%li.nav-item
-            -#  = link_to trips_path, class: 'nav-link' do
-            -#    Trips
-          .d-flex
+    - if user_signed_in?
+      %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        .container-fluid
+          %button.navbar-toggler(aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" data-bs-target="#navbar" data-bs-toggle="collapse" type="button")
+            %span.navbar-toggler-icon
+          #navbar.collapse.navbar-collapse
+            = link_to root_path do
+              .navbar-brand UsStory
+            %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+              %li.nav-item
+                = link_to relationships_path, class: 'nav-link' do
+                  Memory Lane
+              %li.nav-item
+                = link_to entries_path, class: 'nav-link' do
+                  Entries
+              %li.nav-item
+                = link_to parent_entries_path, class: 'nav-link' do
+                  Trips
+            .d-flex
+              .nav-item
+                = link_to destroy_user_session_path, method: :delete, class: 'nav-link' do
+                  Log out
+
+
     .container
       = yield
 

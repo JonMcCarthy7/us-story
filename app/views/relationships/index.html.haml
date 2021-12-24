@@ -1,7 +1,6 @@
-%h1 Listing relationships
 - @entries.each do |entry|
   .row
-    .col.d-flex{class: entry.event_type === "Trip" ? "justify-content-center" : (entry.user == current_user ? "justify-content-start" : "justify-content-end") }
+    .col.d-flex{class: entry.type === "ParentEntry" ? "justify-content-center" : (entry.user == current_user ? "justify-content-start" : "justify-content-end") }
       = link_to entry_path(entry) do
         .card.mb-3(style="max-width: 540px;")
           .row.g-0
@@ -13,8 +12,10 @@
                   = entry.title
                 %p.card-text
                   = entry.start_date
-                %p.card-text
-                  %small.text-muted
+                - if entry.type == 'ParentEntry'
+                  %p.card-text
+                    %small.text-muted= entry.child_entries.count
+
 
 %br
 

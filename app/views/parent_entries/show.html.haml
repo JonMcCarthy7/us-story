@@ -1,0 +1,68 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @parent_entry.title
+%p
+  %b Description:
+  = @parent_entry.description
+%p
+  %b Start date:
+  = @parent_entry.start_date
+%p
+  %b End date:
+  = @parent_entry.end_date
+%p
+  %b Entry type:
+  = @parent_entry.event_type
+%p
+  %b Type:
+  = @parent_entry.type
+%p
+  %b Status:
+  = @parent_entry.status
+%br
+%p
+  = @parent_entry.content
+
+%br
+
+- if @parent_entry.main_image.attached?
+  = image_tag @parent_entry.main_image.representation(resize_to_limit: [100, 100])
+
+%br
+
+- if @parent_entry.images.attached?
+  %ul
+    - @parent_entry.images.each do |image|
+      %li
+        - if image.representable?
+          = image_tag image.representation(resize_to_limit: [100, 100])
+        - else
+          = link_to rails_blob_path(image, disposition: :attachment) do
+            = image_tag "placeholder.png", alt: "Download file"
+
+
+= link_to 'Edit', edit_parent_entry_path(@parent_entry)
+\|
+= link_to 'Back', parent_entries_path
+
+= link_to 'Add Trip Entry', new_parent_entry_child_entry_path(@parent_entry)
+
+
+- @child_entries.each do |child_entry|
+  .row
+    .col.d-flex{class: (child_entry.user == current_user ? "justify-content-start" : "justify-content-end") }
+      = link_to parent_entry_child_entry_path(@parent_entry, child_entry) do
+        .card.mb-3(style="max-width: 540px;")
+          .row.g-0
+            .col-md-4
+              %img.img-fluid.rounded-start(alt="..." src="https://via.placeholder.com/150")/
+            .col-md-8
+              .card-body
+                %h5.card-title
+                  = child_entry.title
+                %p.card-text
+                  = child_entry.start_date
+                %p.card-text
+                  %small.text-muted

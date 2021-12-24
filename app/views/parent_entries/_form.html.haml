@@ -1,9 +1,9 @@
-= form_for @entry do |f|
-  - if @entry.errors.any?
+= form_for @parent_entry do |f|
+  - if @parent_entry.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@entry.errors.count, "error")} prohibited this event from being saved:"
+      %h2= "#{pluralize(@parent_entry.errors.count, "error")} prohibited this event from being saved:"
       %ul
-        - @entry.errors.full_messages.each do |message|
+        - @parent_entry.errors.full_messages.each do |message|
           %li= message
 
   .field
@@ -17,14 +17,15 @@
     = f.text_field :start_date,
     data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y", flatpickr_alt_input: true,
     flatpickr_alt_format: "%B %d %Y", flatpickr_default_date: f.object.start_date.present? ? f.object.start_date.strftime("%B %d %Y") : Time.current }
-  -#.field
-  -#  = f.label :end_date
-  -#  = f.text_field :end_date,
-  -#  data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y" }
+  .field
+    = f.label :end_date
+    = f.text_field :end_date,
+    data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y", flatpickr_alt_input: true,
+    flatpickr_alt_format: "%B %d %Y", flatpickr_default_date: f.object.end_date.present? ? f.object.end_date.strftime("%B %d %Y") : Time.current.tomorrow }
   .field
     = f.label :event_type
   .form-group{'data-controller': 'select2'}
-    = f.select :event_type, Entry.relationship_event_types(@entry.relationship),
+    = f.select :event_type, ParentEntry.relationship_parent_event_types(@parent_entry.relationship),
     {include_blank: false, required: true, include_hidden: false}, class: 'form-control select2'
   -#.field
   -#  = f.label :status

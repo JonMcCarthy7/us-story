@@ -1,23 +1,22 @@
-class Entry < ApplicationRecord
-  belongs_to :user
-  belongs_to :relationship
+# frozen_string_literal: true
 
-  has_one_attached :main_image
-  has_many_attached :images
+class ParentEntry < Entry
+  has_many :child_entries, foreign_key: :entry_id
 
-  has_rich_text :content
+  validates_presence_of :end_date
 
-  # Validations
-  validates_presence_of :title, :description, :start_date, :event_type, :content
+  validate :start_and_end_date
 
-  scope :relationship_event_types, lambda { |relationship|
-    where(relationship: relationship).where.not(type: 'ParentEntry').order(event_type: :asc).pluck(:event_type).uniq
+  scope :relationship_parent_event_types, lambda { |relationship|
+    where(relationship: relationship).order(event_type: :asc).pluck(:event_type).uniq
   }
 
-  def trip?
-    event_type == 'Trip'
-  end
+  private
 
+  def start_and_end_date
+    return if end_date > start_date
+    errors.add(:end_date, 'cannot be before the start date.')
+  end
 end
 
 #     t.string "title"
@@ -35,3 +34,4 @@ end
 #     t.index ["entry_id"], name: "index_entries_on_entry_id"
 #     t.index ["relationship_id"], name: "index_entries_on_relationship_id"
 #     t.index ["user_id"], name: "index_entries_on_user_id"
+

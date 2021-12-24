@@ -42,7 +42,7 @@
           = link_to rails_blob_path(image, disposition: :attachment) do
             = image_tag "placeholder.png", alt: "Download file"
 
-= link_to 'Edit', edit_entry_child_entry_path(@entry, @child_entry)
+= link_to 'Edit', edit_parent_entry_child_entry_path(@parent_entry, @child_entry)
 \|
-= link_to 'Back', entry_path(@entry)
+= link_to 'Back', parent_entry_path(@parent_entry)
 

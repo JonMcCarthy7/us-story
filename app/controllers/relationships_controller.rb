@@ -4,9 +4,9 @@ class RelationshipsController < ApplicationController
   # GET /relationships or /relationships.json
   def index
     @relationship = current_relationship
-    @entries = @relationship.entries.where(entry_id: nil)
-              .merge(@relationship.entries.includes(:child_entries))
-              .order(start_date: :desc)
+    @entries = @relationship.entries.where(entry_id: nil).order(start_date: :desc)
+    Preloader::RelationshipEntries.preload(@entries)
+    # @entries = @entries.group("entries.start_date") #.group_by(&:start_date)
   end
 
   # GET /relationships/1 or /relationships/1.json

@@ -1,19 +1,19 @@
-class EntriesController < ApplicationController
-  before_action :set_entry, only: %i[ show edit update destroy ]
+class ParentEntriesController < ApplicationController
+  before_action :set_parent_entry, only: %i[ show edit update destroy ]
 
   # GET /entries or /entries.json
   def index
-    @entries = current_user.entries.where(type: nil).order(start_date: :desc)
+    @parent_entries = current_user.parent_entries.order(start_date: :desc)
   end
 
   # GET /entries/1 or /entries/1.json
   def show
-    # @child_entries = @entry.child_entries.with_attached_images.order(start_date: :asc)
+    @child_entries = @parent_entry.child_entries.with_attached_images.order(start_date: :asc)
   end
 
   # GET /entries/new
   def new
-    @entry = Entry.new
+    @parent_entry = ParentEntry.new
   end
 
   # GET /entries/1/edit
@@ -22,15 +22,15 @@ class EntriesController < ApplicationController
 
   # POST /entries or /entries.json
   def create
-    @entry = Entry.new(entry_params)
+    @parent_entry = ParentEntry.new(parent_entry_params)
 
     respond_to do |format|
-      if @entry.save
-        format.html { redirect_to @entry, notice: "Entry was successfully created." }
-        format.json { render :show, status: :created, location: @entry }
+      if @parent_entry.save
+        format.html { redirect_to @parent_entry, notice: "Entry was successfully created." }
+        format.json { render :show, status: :created, location: @parent_entry }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
+        format.json { render json: @parent_entry.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -38,19 +38,19 @@ class EntriesController < ApplicationController
   # PATCH/PUT /entries/1 or /entries/1.json
   def update
     respond_to do |format|
-      if @entry.update(entry_params)
-        format.html { redirect_to @entry, notice: "Entry was successfully updated." }
-        format.json { render :show, status: :ok, location: @entry }
+      if @parent_entry.update(parent_entry_params)
+        format.html { redirect_to @parent_entry, notice: "Entry was successfully updated." }
+        format.json { render :show, status: :ok, location: @parent_entry }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
+        format.json { render json: @parent_entry.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /entries/1 or /entries/1.json
   def destroy
-    @entry.destroy
+    @parent_entry.destroy
     respond_to do |format|
       format.html { redirect_to entries_url, notice: "Entry was successfully destroyed." }
       format.json { head :no_content }
@@ -60,13 +60,13 @@ class EntriesController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_entry
-    @entry = Entry.find(params[:id])
+  def set_parent_entry
+    @parent_entry = ParentEntry.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
-  def entry_params
-    params.require(:entry).permit(
+  def parent_entry_params
+    params.require(:parent_entry).permit(
       :title,
       :description,
       :start_date,
