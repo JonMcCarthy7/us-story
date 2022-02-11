@@ -1,0 +1,17 @@
+.row.entry.parent-trip
+  .col-12.d-flex.justify-content-center
+    = link_to parent_entry_path(entry) do
+      .card.mb-3
+        = image_tag("trip_map.jpg", class: "img-fluid card-img-top card-image")
+        .card-body
+          .d-flex.flex-wrap.justify-content-between.align-items-center.mb-3
+            .d-flex.flex-column
+              .card-title.m-0
+                %h5.m-0= entry.title
+              .card-subtitle.text-muted
+                %p
+                  %small= pluralize(entry.child_entries.count, 'entry')
+            .card-subtitle.mb-2.text-muted
+              %h6= "#{entry.start_date.strftime('%B %d')} - #{entry.end_date.strftime('%B %d, %Y')}"
+          %p.card-text
+            = entry.description

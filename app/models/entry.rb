@@ -14,6 +14,14 @@ class Entry < ApplicationRecord
     where(relationship: relationship).where.not(type: 'ParentEntry').order(event_type: :asc).pluck(:event_type).uniq
   }
 
+  def parent_entry?
+    type == "ParentEntry"
+  end
+
+  def mine?(current_user)
+    current_user == user
+  end
+
   def trip?
     event_type == 'Trip'
   end

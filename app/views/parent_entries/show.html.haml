@@ -1,29 +1,25 @@
 %p#notice= notice
+#entry-show
+  .card
+    .card-body
+      .d-flex.justify-content-between.align-items-center
+        .card-title.d-flex.justify-content-start.align-items-baseline
+          %h4= @parent_entry.title
+          .card-subtitle.text-muted.ps-2
+            = @parent_entry.start_date.strftime("%B %d, %Y")
+        .action
+          = link_to 'Edit', edit_entry_path(@parent_entry)
+          \|
+          = link_to 'Back', entries_path
+      .row
+        .col-12.col-sm-6
+          .card-text.text-muted
+            = @parent_entry.description
 
-%p
-  %b Title:
-  = @parent_entry.title
-%p
-  %b Description:
-  = @parent_entry.description
-%p
-  %b Start date:
-  = @parent_entry.start_date
-%p
-  %b End date:
-  = @parent_entry.end_date
-%p
-  %b Entry type:
-  = @parent_entry.event_type
-%p
-  %b Type:
-  = @parent_entry.type
-%p
-  %b Status:
-  = @parent_entry.status
-%br
-%p
-  = @parent_entry.content
+      .row.my-3
+        .col
+          .entry-content.card-text
+            = @parent_entry.content
 
 %br
 

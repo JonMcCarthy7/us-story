@@ -10,10 +10,10 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
   %body
-    %p.notice= notice
-    %p.alert= alert
+    -#%p.notice= notice
+    -#%p.alert= alert
     - if user_signed_in?
-      %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      %nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
         .container-fluid
           %button.navbar-toggler(aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" data-bs-target="#navbar" data-bs-toggle="collapse" type="button")
             %span.navbar-toggler-icon

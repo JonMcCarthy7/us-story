@@ -11,5 +11,5 @@ class User < ApplicationRecord
 
   has_one_attached :profile_image
 
-  validates_presence_of :email, :first_name, :last_name, :date_of_birth
+  validates_presence_of :email, :first_name, :last_name#, :date_of_birth
 end
