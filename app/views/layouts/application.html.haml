@@ -13,13 +13,15 @@
     -#%p.notice= notice
     -#%p.alert= alert
     - if user_signed_in?
-      %nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+      %nav.navbar.navbar-expand-lg.navbar-dark.bg-primary.mb-5
         .container-fluid
           %button.navbar-toggler(aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" data-bs-target="#navbar" data-bs-toggle="collapse" type="button")
             %span.navbar-toggler-icon
           #navbar.collapse.navbar-collapse
             = link_to root_path do
-              .navbar-brand UsStory
+              .navbar-brand
+                %span.text-muted Us
+                %span Story
             %ul.navbar-nav.me-auto.mb-2.mb-lg-0
               %li.nav-item
                 = link_to relationships_path, class: 'nav-link' do
