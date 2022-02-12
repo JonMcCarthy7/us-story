@@ -1,5 +1,5 @@
 %p#notice= notice
-#entry-show
+#entry-show.mb-3
   .card
     .card-body
       .d-flex.justify-content-between.align-items-center
@@ -7,10 +7,18 @@
           %h4= @parent_entry.title
           .card-subtitle.text-muted.ps-2
             = @parent_entry.start_date.strftime("%B %d, %Y")
-        .action
-          = link_to 'Edit', edit_entry_path(@parent_entry)
-          \|
-          = link_to 'Back', entries_path
+            \-
+            = @parent_entry.end_date.strftime("%B %d, %Y")
+        .dropdown.pointer
+          .bi.bi-three-dots{'data-bs-toggle': "dropdown" }
+          %ul.dropdown-menu
+            %li
+              = link_to edit_parent_entry_path(@parent_entry), class: 'dropdown-item' do
+                Edit
+            %li
+              = link_to @parent_entry, method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' } do
+                Destroy
+
       .row
         .col-12.col-sm-6
           .card-text.text-muted
@@ -21,44 +29,29 @@
           .entry-content.card-text
             = @parent_entry.content
 
-%br
+-#%br
+-#
+-#- if @parent_entry.main_image.attached?
+-#  = image_tag @parent_entry.main_image.representation(resize_to_limit: [100, 100])
+-#
+-#%br
+-#
+-#- if @parent_entry.images.attached?
+-#  %ul
+-#    - @parent_entry.images.each do |image|
+-#      %li
+-#        - if image.representable?
+-#          = image_tag image.representation(resize_to_limit: [100, 100])
+-#        - else
+-#          = link_to rails_blob_path(image, disposition: :attachment) do
+-#            = image_tag "placeholder.png", alt: "Download file"
 
-- if @parent_entry.main_image.attached?
-  = image_tag @parent_entry.main_image.representation(resize_to_limit: [100, 100])
-
-%br
-
-- if @parent_entry.images.attached?
-  %ul
-    - @parent_entry.images.each do |image|
-      %li
-        - if image.representable?
-          = image_tag image.representation(resize_to_limit: [100, 100])
-        - else
-          = link_to rails_blob_path(image, disposition: :attachment) do
-            = image_tag "placeholder.png", alt: "Download file"
-
-
-= link_to 'Edit', edit_parent_entry_path(@parent_entry)
-\|
-= link_to 'Back', parent_entries_path
-
-= link_to 'Add Trip Entry', new_parent_entry_child_entry_path(@parent_entry)
-
-
-- @child_entries.each do |child_entry|
-  .row
-    .col.d-flex{class: (child_entry.user == current_user ? "justify-content-start" : "justify-content-end") }
-      = link_to parent_entry_child_entry_path(@parent_entry, child_entry) do
-        .card.mb-3(style="max-width: 540px;")
-          .row.g-0
-            .col-md-4
-              %img.img-fluid.rounded-start(alt="..." src="https://via.placeholder.com/150")/
-            .col-md-8
-              .card-body
-                %h5.card-title
-                  = child_entry.title
-                %p.card-text
-                  = child_entry.start_date
-                %p.card-text
-                  %small.text-muted
+.row
+  .col-12.col-sm-6
+    .list-group
+      - @child_entries.each do |child_entry|
+        = link_to parent_entry_child_entry_path(@parent_entry, child_entry), class: 'list-group-item' do
+          .d-flex.w-100.justify-content-between
+            %h5.mb-1= child_entry.title
+            %small= child_entry.start_date.strftime("%B %d, %Y")
+          %p.card-text= child_entry.description

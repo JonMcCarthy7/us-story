@@ -15,6 +15,7 @@ ActiveStorage.start()
 import "controllers"
 
 import * as bootstrap from 'bootstrap'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 import "../stylesheets/application"
 
 document.addEventListener("DOMContentLoaded", function(event) {

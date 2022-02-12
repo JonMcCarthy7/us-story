@@ -1,17 +1,16 @@
 = simple_form_for @entry, wrapper: :floating_labels_form, wrapper_mappings: {select: :floating_labels_select}  do |f|
   = f.input :title
   = f.input :description
-
   = f.input :start_date, as: :flatpickr, placeholder: 'Start Date', input_html: {data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y", flatpickr_alt_input: true,
     flatpickr_alt_format: "%B %d %Y", flatpickr_default_date: f.object.start_date.present? ? f.object.start_date.strftime("%B %d %Y") : Time.current }}
 
 
   .form-floating.mb-3{'data-controller': 'select2'}
-    = f.select :event_type, Entry.relationship_event_types(@entry.relationship),
+    = f.select :event_type, Entry.relationship_event_types(current_user.relationship),
       {include_blank: false, required: true, include_hidden: false}, class: 'form-select select2'
     = f.label :event_type
 
-  = f.rich_text_area :content, class: 'form-control'
+  .mb-3= f.rich_text_area :content, class: 'form-control'
 
 
   = f.input :main_image, multiple: false
@@ -19,5 +18,6 @@
 
   = f.input :images, multiple: true
 
-
-  = f.button :submit, class: "btn-primary"
+  .d-flex.justify-content-between
+    = link_to 'Back', entries_path,  class: 'btn btn-secondary'
+    = f.button :submit, class: "btn-primary"

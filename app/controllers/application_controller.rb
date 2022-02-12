@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def current_relationship
-    @current_relationship ||= current_user.relationship if current_user
+    @current_relationship ||= current_user.relationship if current_user.present?
   end
 
   protected

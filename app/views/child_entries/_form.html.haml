@@ -1,45 +1,24 @@
-= form_for [@parent_entry, @child_entry] do |f|
-  - if @child_entry.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@child_entry.errors.count, "error")} prohibited this event from being saved:"
-      %ul
-        - @child_entry.errors.full_messages.each do |message|
-          %li= message
+= simple_form_for [@parent_entry, @child_entry] do |f|
+  = f.input :title
+  = f.input :description
 
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :description
-    = f.text_area :description
-  .field
-    = f.label :start_date
-    = f.text_field :start_date,
-    data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y", flatpickr_min_date: @parent_entry.start_date,
-    flatpickr_max_date: @parent_entry.end_date, flatpickr_alt_input: true, flatpickr_alt_format: "%B %d %Y",
-    flatpickr_default_date: f.object.start_date.present? ? f.object.start_date.strftime("%B %d %Y") : Time.current }
-  -#.field
-  -#  = f.label :end_date
-  -#  = f.text_field :end_date,
-  -#  data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y", enable_time: true }
-  .field
+  = f.input :start_date, as: :flatpickr, placeholder: 'Start Date',
+  input_html: { data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y", flatpickr_min_date: @parent_entry.start_date,
+  flatpickr_max_date: @parent_entry.end_date, flatpickr_alt_input: true, flatpickr_alt_format: "%B %d %Y",
+  flatpickr_default_date: f.object.start_date.present? ? f.object.start_date.strftime("%B %d %Y") : Time.current }}
+
+  .form-floating.mb-3{'data-controller': 'select2'}
+    = f.select :event_type, Entry.relationship_event_types(@current_relationship),
+      {include_blank: false, required: true, include_hidden: false}, class: 'form-select select2'
     = f.label :event_type
-    = f.text_field :event_type
-  -#.field
-  -#  = f.label :status
-  -#  = f.text_field :status
-  %br
-  .field
-    = f.rich_text_area :content
 
-  %br
-    .field
-      = f.label :main_image
-      = f.file_field :main_image, multiple: false
-  %br
-    .field
-      = f.label :images
-      = f.file_field :images, multiple: true
+  .mb-3= f.rich_text_area :content, class: 'form-control'
 
-  .actions
-    = f.submit 'Save'
+  = f.input :main_image, multiple: false
+
+
+  = f.input :images, multiple: true
+
+  .d-flex.justify-content-between
+    = link_to 'Back', parent_entry_child_entry_path(@parent_entry, @child_entry), class: 'btn btn-secondary'
+    = f.button :submit, "Update", class: "btn-primary"
