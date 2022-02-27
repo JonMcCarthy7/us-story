@@ -20,5 +20,5 @@
   = f.input :images, multiple: true
 
   .d-flex.justify-content-between
-    = link_to 'Back', parent_entry_child_entry_path(@parent_entry, @child_entry), class: 'btn btn-secondary'
+    = link_to 'Back', parent_entry_path(@parent_entry), class: 'btn btn-secondary'
     = f.button :submit, "Update", class: "btn-primary"

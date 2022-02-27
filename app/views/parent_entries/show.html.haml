@@ -29,6 +29,10 @@
           .entry-content.card-text
             = @parent_entry.content
 
+  = link_to 'Add Trip Entry', new_parent_entry_child_entry_path(@parent_entry)
+
+
+
 -#%br
 -#
 -#- if @parent_entry.main_image.attached?
