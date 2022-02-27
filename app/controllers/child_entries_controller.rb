@@ -1,6 +1,6 @@
 class ChildEntriesController < ApplicationController
   before_action :set_parent_entry
-  before_action :set_child_entry, only: %i[ show edit update destroy ]
+  before_action :set_child_entry, only: %i[show edit update destroy]
 
   def show
   end
