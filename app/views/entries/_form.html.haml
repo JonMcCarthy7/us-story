@@ -13,10 +13,9 @@
   .mb-3= f.rich_text_area :content, class: 'form-control'
 
 
-  = f.input :main_image, multiple: false
+  = f.input :main_image, as: :file, input_html: {multiple: false}
 
-
-  = f.input :images, multiple: true
+  = f.input :images, as: :file, input_html: {multiple: true}
 
   .d-flex.justify-content-between
     = link_to 'Back', entries_path,  class: 'btn btn-secondary'

@@ -47,15 +47,10 @@ group :development, :test do
   gem 'pry'
   gem 'pry-nav'
   gem 'capybara'
-  gem 'faker'
-  gem 'timecop'
-  gem 'awesome_print'
-  gem 'bullet'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'xray-rails'
 end
 
 group :development do

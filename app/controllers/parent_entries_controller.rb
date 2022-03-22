@@ -74,7 +74,7 @@ class ParentEntriesController < ApplicationController
       :event_type,
       :status,
       :content,
-      :cover_image,
+      :main_image,
       images: []
     ).merge(user: current_user, relationship: current_relationship)
   end
