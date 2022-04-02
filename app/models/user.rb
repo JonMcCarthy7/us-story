@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :entries, class_name: 'Entry'
   has_many :parent_entries, class_name: 'ParentEntry'
+  has_many :rems
 
   has_one_attached :profile_image
 

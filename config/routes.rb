@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :rems
+  resources :rems, except: :show
   resources :entries
   resources :parent_entries, path: 'trips' do
     resources :child_entries, path: 'entries'

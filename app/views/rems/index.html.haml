@@ -2,11 +2,21 @@
 
 - if @rems.present?
   - @rems.each do |rem|
-    .card
-      .card-body
-        .card-title
-          = simple_format rem.content
-        = link_to 'Edit', edit_rem_path(rem)
-        = link_to 'Destroy', rem, method: :delete, data: { confirm: 'Are you sure?' }
+    .row.mb-4
+      .col
+        .card
+          .card-body
+            .d-flex.justify-content-between
+              .card-title.d-flex.justify-content-start.align-items-baseline.mt-4
+                %h5= simple_format rem.content
+              .dropdown.pointer
+                .bi.bi-three-dots{'data-bs-toggle': "dropdown" }
+                %ul.dropdown-menu
+                  %li
+                    = link_to edit_rem_path(rem), class: 'dropdown-item' do
+                      Edit
+                  %li
+                    = link_to rem, method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure?' } do
+                      Destroy
 
-= link_to 'New Rem', new_rem_path
+= link_to 'Make a new Rem', new_rem_path, class: "btn btn-primary"

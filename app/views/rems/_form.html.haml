@@ -1,13 +1,8 @@
-= form_for @rem do |f|
-  - if @rem.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@rem.errors.count, "error")} prohibited this rem from being saved:"
-      %ul
-        - @rem.errors.full_messages.each do |message|
-          %li= message
+.row
+  .col-12.col-sm-8
+    = simple_form_for @rem do |f|
+      = f.input :content, as: :text, input_html: { class: 'text-area-input' }
 
-  .field
-    = f.label :content
-    = f.text_field :content
-  .actions
-    = f.submit 'Save'
+      .d-flex.justify-content-between
+        = link_to 'Back', rems_path, class: 'btn btn-secondary'
+        = f.button :submit, "Save", class: "btn-primary"
