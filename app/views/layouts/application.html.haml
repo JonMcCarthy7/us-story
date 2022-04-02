@@ -32,6 +32,10 @@
               %li.nav-item
                 = link_to parent_entries_path, class: 'nav-link' do
                   Trips
+              %li.nav-item
+                = link_to rems_path, class: 'nav-link' do
+                  Rems
+
             .d-flex
               .nav-item
                 = link_to destroy_user_session_path, method: :delete, class: 'nav-link' do
