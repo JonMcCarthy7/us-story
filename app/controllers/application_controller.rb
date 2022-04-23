@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  include ActiveStorage::SetCurrent
+  include ActiveStorageHelper
 
   def current_relationship
     @current_relationship ||= current_user.relationship if current_user.present?

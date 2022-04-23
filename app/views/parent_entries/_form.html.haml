@@ -1,28 +1,39 @@
-= simple_form_for @parent_entry do |f|
-  = f.input :title
-  = f.input :description
+#parent-entry-form{ 'data-controller': 'dropzone', 'data-dropzone-max-file-size': '100', 'data-dropzone-max-files': 100,
+  'data-dropzone-accepted-files': 'image/jpg, image/jpeg, image/gif, image/png, video/mp4', 'data-dropzone-delete-url': '/delete_file',
+  'data-dropzone-record-name': 'parent-entry', 'data-dropzone-existing-files': @media_files_json}
+  = simple_form_for @parent_entry do |f|
+    = f.input :title
+    = f.input :description
 
-  = f.input :start_date, as: :flatpickr, placeholder: 'Start Date',
-   input_html: { data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y", flatpickr_alt_input: true,
-  flatpickr_alt_format: "%B %d %Y", flatpickr_default_date: f.object.start_date.present? ? f.object.start_date.strftime("%B %d %Y") : Time.current }}
+    = f.input :start_date, as: :flatpickr, placeholder: 'Start Date',
+     input_html: { data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y", flatpickr_alt_input: true,
+    flatpickr_alt_format: "%B %d %Y", flatpickr_default_date: f.object.start_date.present? ? f.object.start_date.strftime("%B %d %Y") : Time.current }}
 
-  = f.input :end_date, as: :flatpickr, placeholder: 'Start Date',
-  input_html: {data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y", flatpickr_alt_input: true,
-  flatpickr_alt_format: "%B %d %Y", flatpickr_default_date: f.object.end_date.present? ? f.object.end_date.strftime("%B %d %Y") : Time.current.tomorrow }}
+    = f.input :end_date, as: :flatpickr, placeholder: 'Start Date',
+    input_html: {data: { controller: "flatpickr", flatpickr_date_format: "%B %d %Y", flatpickr_alt_input: true,
+    flatpickr_alt_format: "%B %d %Y", flatpickr_default_date: f.object.end_date.present? ? f.object.end_date.strftime("%B %d %Y") : Time.current.tomorrow }}
 
-  .form-floating.mb-3{'data-controller': 'select2'}
-    = f.select :event_type, ParentEntry.relationship_parent_event_types(current_user.relationship),
-      {include_blank: false, required: true, include_hidden: false}, class: 'form-select select2'
-    = f.label :event_type
+    .form-floating.mb-3{'data-controller': 'select2'}
+      = f.select :event_type, ParentEntry.relationship_parent_event_types(current_user.relationship),
+        {include_blank: false, required: true, include_hidden: false}, class: 'form-select select2'
+      = f.label :event_type
 
-  .mb-3= f.rich_text_area :content, class: 'form-control'
-
-
-  = f.input :main_image, as: :file, input_html: {multiple: false}
+    .mb-3= f.rich_text_area :content, class: 'form-control'
 
 
-  = f.input :images, as: :file, input_html: {multiple: true}
+    = f.input :main_image, as: :file, input_html: {multiple: false}
 
-  .d-flex.justify-content-between
-    = link_to 'Back', parent_entries_path,  class: 'btn btn-secondary'
-    = f.button :submit, class: "btn-primary"
+    #dropzone
+      .row
+        .col-12
+          .dropzone.dz-clickable.mb-3.rounded{'data-target': 'dropzone.element'}
+            = f.file_field :images, multiple: true, direct_upload: true, data: {target: 'dropzone.input'}
+            .dz-message
+              %h3.dropzone-msg-title Drag or click here to upload
+              -#%span.dropzone-msg-desc.text-sm 3 MB file size maximum.
+      = f.error :images, class: 'invalid-feedback d-block'
+    -# = f.input :images, as: :file, input_html: {multiple: true}
+
+    .d-flex.justify-content-between
+      = link_to 'Back', parent_entries_path,  class: 'btn btn-secondary'
+      = f.button :submit, class: "btn-primary"
