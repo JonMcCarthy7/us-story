@@ -28,23 +28,10 @@
             = @entry.content
 
 
+      -# - if @entry.main_image.attached?
+      -#   = image_tag @entry.main_image.representation(resize_to_limit: [100, 100])
 
-      %br
-
-      - if @entry.main_image.attached?
-        = image_tag @entry.main_image.representation(resize_to_limit: [100, 100])
-
-      %br
-
-      - if @entry.images.attached?
-        %ul
-          - @entry.images.each do |image|
-            %li
-              - if image.representable?
-                = image_tag image.representation(resize_to_limit: [100, 100])
-              - else
-                = link_to rails_blob_path(image, disposition: :attachment) do
-                  = image_tag "placeholder.png", alt: "Download file"
+  = render partial: "shared/media_gallery", locals: {resource: @entry}
 
 
 

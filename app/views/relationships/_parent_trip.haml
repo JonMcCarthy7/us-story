@@ -2,7 +2,10 @@
   .col-12.d-flex.justify-content-center
     = link_to parent_entry_path(entry) do
       .card.mb-3
-        = image_tag("trip_map.jpg", class: "img-fluid card-img-top card-image")
+        - if entry.main_image.attached?
+          = image_tag entry.main_image.representation(resize_to_limit: [500, 500]), class: "img-fluid card-img-top card-image"
+        - else
+          = image_tag("trip_map.jpg", class: "img-fluid card-img-top card-image")
         .card-body
           .d-flex.flex-wrap.justify-content-between.align-items-center.mb-3
             .d-flex.flex-column

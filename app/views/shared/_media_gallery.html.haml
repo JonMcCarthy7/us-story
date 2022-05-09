@@ -1,0 +1,14 @@
+.row.mt-5.mb-3
+  .col
+    %h3
+      Media
+      %span
+        %small.text-muted= resource.images.count
+
+    - if resource.images.attached?
+      .d-flex.justify-content-start.flex-wrap.ps-4
+        - resource.images.each do |image|
+          - if image.representable?
+            .media-gallery-image.rounded
+              = link_to image.url, target: '_blank' do
+                = image_tag image.representation(resize_to_limit: [500, 500])

@@ -28,34 +28,52 @@
         .col
           .entry-content.card-text
             = @parent_entry.content
-  %hr
-  = link_to 'Add Trip Entry', new_parent_entry_child_entry_path(@parent_entry), class: "btn btn-primary"
+
+-# - if @parent_entry.main_image.attached?
+-#   = image_tag @parent_entry.main_image.representation(resize_to_limit: [100, 100])
+
+= render partial: "shared/media_gallery", locals: {resource: @parent_entry}
+
+.row.mt-5
+  .col
+    .d-flex.justify-content-between
+      .trip-entries-lists-title
+        %h3
+          Trip Entries
+          %span
+            %small.text-muted= @child_entries.count
+      .add-entry-plus-icon
+        = link_to 'Add Trip Entry', new_parent_entry_child_entry_path(@parent_entry), class: "btn btn-primary"
+
+
+    .row
+      .col-12.col-sm-8
+        .ps-4
+          .list-group.mt-2.mb-3
+            - @child_entries.each do |child_entry|
+              .mb-3
+                = link_to parent_entry_child_entry_path(@parent_entry, child_entry), class: '' do
+                  - if child_entry.main_image.attached?
+                    .card.mb-3{style: "max-width: 1000px;"}
+                      .row.g-0
+                        .col-md-4
+                          = image_tag child_entry.main_image.representation(resize_to_limit: [500, 500]), class: 'img-fluid rounded-start'
+                          -#%img.img-fluid.rounded-start{alt: "...", src: "..."}/
+                        .col-md-8
+                          .card-body
+                            %h5.card-title child_entry.title
+                            %small= child_entry.start_date.strftime("%B %d, %Y")
+                            %p.card-text= child_entry.description
+                  - else
+                    .list-group
+                      .list-group-item
+                        .d-flex.w-100.justify-content-between
+                          %h5.mb-1= child_entry.title
+                          %small= child_entry.start_date.strftime("%B %d, %Y")
+                        %p.card-text= child_entry.description
 
 
 
-%br
 
-  - if @parent_entry.main_image.attached?
-    = image_tag @parent_entry.main_image.representation(resize_to_limit: [100, 100])
 
-%br
--#
-- if @parent_entry.images.attached?
-  %ul
-    - @parent_entry.images.each do |image|
-      %li
-        - if image.representable?
-          = image_tag image.representation(resize_to_limit: [100, 100])
-        - else
-          = link_to rails_blob_path(image, disposition: :attachment) do
-            = image_tag "placeholder.png", alt: "Download file"
 
-.row
-  .col-12.col-sm-6
-    .list-group
-      - @child_entries.each do |child_entry|
-        = link_to parent_entry_child_entry_path(@parent_entry, child_entry), class: 'list-group-item' do
-          .d-flex.w-100.justify-content-between
-            %h5.mb-1= child_entry.title
-            %small= child_entry.start_date.strftime("%B %d, %Y")
-          %p.card-text= child_entry.description
