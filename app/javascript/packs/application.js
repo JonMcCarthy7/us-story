@@ -12,8 +12,6 @@ import "controllers"
 
 import * as bootstrap from 'bootstrap'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import 'dropzone/dist/dropzone.css'
-import 'dropzone/dist/basic.css'
 import "../stylesheets/application.scss"
 
 document.addEventListener("DOMContentLoaded", function(event) {

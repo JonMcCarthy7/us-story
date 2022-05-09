@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ParentEntry < Entry
-  has_many :child_entries, foreign_key: :entry_id
+  has_many :child_entries, foreign_key: :entry_id, dependent: :destroy
 
   validates_presence_of :end_date
 

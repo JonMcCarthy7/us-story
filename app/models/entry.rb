@@ -2,8 +2,8 @@ class Entry < ApplicationRecord
   belongs_to :user
   belongs_to :relationship
 
-  has_one_attached :main_image
-  has_many_attached :images
+  has_one_attached :main_image, dependent: :destroy
+  has_many_attached :images, dependent: :destroy
 
   has_rich_text :content
 
