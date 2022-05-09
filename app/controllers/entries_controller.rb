@@ -18,6 +18,7 @@ class EntriesController < ApplicationController
 
   # GET /entries/1/edit
   def edit
+    set_media_files
   end
 
   # POST /entries or /entries.json
@@ -29,6 +30,7 @@ class EntriesController < ApplicationController
         format.html { redirect_to @entry, notice: "Entry was successfully created." }
         format.json { render :show, status: :created, location: @entry }
       else
+        set_media_files
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
@@ -42,6 +44,7 @@ class EntriesController < ApplicationController
         format.html { redirect_to @entry, notice: "Entry was successfully updated." }
         format.json { render :show, status: :ok, location: @entry }
       else
+        set_media_files
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
@@ -62,6 +65,10 @@ class EntriesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_entry
     @entry = Entry.find(params[:id])
+  end
+
+  def set_media_files
+    @media_files_json = json_mock_files(@entry.images)
   end
 
   # Only allow a list of trusted parameters through.

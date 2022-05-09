@@ -1,5 +1,5 @@
 class ParentEntriesController < ApplicationController
-  before_action :set_parent_entry, only: %i[ show edit update destroy ]
+  before_action :set_parent_entry, only: %i[show edit update destroy]
 
   # GET /entries or /entries.json
   def index
@@ -18,6 +18,7 @@ class ParentEntriesController < ApplicationController
 
   # GET /entries/1/edit
   def edit
+    set_media_files
   end
 
   # POST /entries or /entries.json
@@ -29,6 +30,7 @@ class ParentEntriesController < ApplicationController
         format.html { redirect_to @parent_entry, notice: "Entry was successfully created." }
         format.json { render :show, status: :created, location: @parent_entry }
       else
+        set_media_files
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @parent_entry.errors, status: :unprocessable_entity }
       end
@@ -42,6 +44,7 @@ class ParentEntriesController < ApplicationController
         format.html { redirect_to @parent_entry, notice: "Entry was successfully updated." }
         format.json { render :show, status: :ok, location: @parent_entry }
       else
+        set_media_files
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @parent_entry.errors, status: :unprocessable_entity }
       end
@@ -62,6 +65,10 @@ class ParentEntriesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_parent_entry
     @parent_entry = ParentEntry.find(params[:id])
+  end
+
+  def set_media_files
+    @media_files_json = json_mock_files(@parent_entry.images)
   end
 
   # Only allow a list of trusted parameters through.

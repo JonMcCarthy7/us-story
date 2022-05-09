@@ -10,6 +10,7 @@ class ChildEntriesController < ApplicationController
   end
 
   def edit
+    set_media_files
   end
 
   def create
@@ -20,6 +21,7 @@ class ChildEntriesController < ApplicationController
         format.html { redirect_to parent_entry_child_entry_path(@parent_entry, @child_entry), notice: "Entry was successfully created." }
         format.json { render :show, status: :created, location: @child_entry }
       else
+        set_media_files
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @child_entry.errors, status: :unprocessable_entity }
       end
@@ -32,6 +34,7 @@ class ChildEntriesController < ApplicationController
         format.html { redirect_to parent_entry_child_entry_path(@parent_entry, @child_entry), notice: "Entry was successfully updated." }
         format.json { render :show, status: :ok, location: @child_entry }
       else
+        set_media_files
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @child_entry.errors, status: :unprocessable_entity }
       end
@@ -55,6 +58,10 @@ class ChildEntriesController < ApplicationController
 
   def set_child_entry
     @child_entry = ChildEntry.find(params[:id])
+  end
+
+  def set_media_files
+    @media_files_json = json_mock_files(@child_entry.images)
   end
 
   # Only allow a list of trusted parameters through.

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :child_entries, path: 'entries'
   end
   resources :relationships
+  resources :files, only: :create
   devise_for :users
   root to: 'home#index'
+
 end

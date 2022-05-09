@@ -1,5 +1,5 @@
 #parent-entry-form{ 'data-controller': 'dropzone', 'data-dropzone-max-file-size': '100', 'data-dropzone-max-files': 100,
-  'data-dropzone-accepted-files': 'image/jpg, image/jpeg, image/gif, image/png, video/mp4', 'data-dropzone-delete-url': '/delete_file',
+  'data-dropzone-accepted-files': 'image/jpg, image/jpeg, image/gif, image/png, video/mp4', 'data-dropzone-delete-url': '/files',
   'data-dropzone-record-name': 'parent-entry', 'data-dropzone-existing-files': @media_files_json}
   = simple_form_for @parent_entry do |f|
     = f.input :title
@@ -23,16 +23,8 @@
 
     = f.input :main_image, as: :file, input_html: {multiple: false}
 
-    #dropzone
-      .row
-        .col-12
-          .dropzone.dz-clickable.mb-3.rounded{'data-target': 'dropzone.element'}
-            = f.file_field :images, multiple: true, direct_upload: true, data: {target: 'dropzone.input'}
-            .dz-message
-              %h3.dropzone-msg-title Drag or click here to upload
-              -#%span.dropzone-msg-desc.text-sm 3 MB file size maximum.
-      = f.error :images, class: 'invalid-feedback d-block'
-    -# = f.input :images, as: :file, input_html: {multiple: true}
+    = render partial: "shared/dropzone_component", locals: {f: f, column_name: 'images', file_size: '3'}
+
 
     .d-flex.justify-content-between
       = link_to 'Back', parent_entries_path,  class: 'btn btn-secondary'

@@ -1,0 +1,9 @@
+#dropzone
+  .row
+    .col-12
+      .dropzone.dz-clickable.mb-3.rounded{'data-dropzone-target': 'element'}
+        = f.file_field column_name.to_sym, multiple: true, direct_upload: true, 'data-dropzone-target': 'input'
+        .dz-message
+          %h3.dropzone-msg-title Drag or click here to upload
+          %span.dropzone-msg-desc.text-sm=  "#{file_size}MB file size maximum."
+      = f.error column_name.to_sym, class: 'invalid-feedback d-block'

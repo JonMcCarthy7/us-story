@@ -1,4 +1,5 @@
 import Dropzone from "dropzone";
+import Rails from "@rails/ujs"
 import {Controller} from "stimulus"
 import DirectUploadController from '../direct_upload_controller'
 import {getMetaValue, removeElement} from "../helpers"
@@ -32,7 +33,8 @@ export default class extends Controller {
     if (existingFiles?.length) {
       existingFiles.forEach(file => {
         let mockFile = {attachment_id: file.id, name: file.blob.filename, size: file.blob.byte_size, accepted: true}
-        dz_init_this.displayExistingFile(mockFile, file.blob.url)
+
+        dz_init_this.displayExistingFile(mockFile, file.blob.url, null, "anonymous")
         dz_init_this.files.push(mockFile)
       })
     }
@@ -110,11 +112,9 @@ export default class extends Controller {
 
   deleteFile(payload) {
     Rails.ajax({
-      type: 'DELETE',
-      dataType: 'JSON',
       url: this.deleteUrl,
-      data: {...payload},
-      beforeSend: xhr => xhr.setRequestHeader('X-CSRF-Token', getMetaValue("csrf-token"))
+      type: 'POST',
+      data: new URLSearchParams(payload).toString()
     })
   }
 }
