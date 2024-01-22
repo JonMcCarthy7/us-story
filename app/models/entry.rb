@@ -15,7 +15,7 @@ class Entry < ApplicationRecord
   }
 
   def parent_entry?
-    type == "ParentEntry"
+    type == 'ParentEntry'
   end
 
   def mine?(current_user)
